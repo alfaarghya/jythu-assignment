@@ -5,12 +5,14 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
 export const InfiniteMovingCards = ({
+  isText,
   items,
   direction = "left",
   speed = "fast",
   pauseOnHover = true,
   className,
 }: {
+  isText?: boolean;
   items: {
     name: string;
     src: string;
@@ -95,13 +97,30 @@ export const InfiniteMovingCards = ({
                 aria-hidden="true"
                 className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
               ></div>
-              <Image
-                src={item.src}
-                width={140}
-                height={40}
-                alt="Picture of the author"
-                className="cursor-pointer "
-              />
+              <div className="flex items-center gap-1">
+                {isText ? (
+                  <>
+                    <Image
+                      src={item.src}
+                      width={60}
+                      height={40}
+                      alt="Picture of the author"
+                      className="cursor-pointer "
+                    />
+                    <p className="text-xl text-black font-semibold">
+                      {item.name}
+                    </p>
+                  </>
+                ) : (
+                  <Image
+                    src={item.src}
+                    width={140}
+                    height={40}
+                    alt="Picture of the author"
+                    className="cursor-pointer "
+                  />
+                )}
+              </div>
             </blockquote>
           </li>
         ))}
