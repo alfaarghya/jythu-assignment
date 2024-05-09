@@ -1,13 +1,20 @@
+import About from "@/components/elements/About";
+import Cards from "@/components/elements/Cards";
 import Footer from "@/components/elements/Footer";
+import InfiniteMove from "@/components/elements/InfiniteMove";
+import InfoRibbon from "@/components/elements/InfoRibbon";
 import NavBar from "@/components/elements/NavBar";
+import Service from "@/components/elements/Service";
 
 export default function Home() {
   return (
-    <div className="h-screen flex flex-col justify-between ">
+    <div className="h-screen flex flex-col justify-between overflow-x-hidden">
       <NavBar />
-      <h1 className="flex justify-center items-center text-2xl text-sky-200">
-        Hello World
-      </h1>
+      <About />
+      <InfiniteMove />
+      <Cards />
+      <InfoRibbon />
+      <Service />
       <Footer />
     </div>
   );
