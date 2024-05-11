@@ -1,8 +1,30 @@
+"use client";
 import Link from "next/link";
 import { HoverEffect } from "../ui/CardHoverEffect";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+interface serviceType {
+  title: string;
+  src: string;
+  description: string;
+  link: string;
+}
 
 const Cards = () => {
+  const [data, setData] = useState<serviceType[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("/api/services");
+      const data = await response.json();
+      return data;
+    }
+    fetchData().then((data) => {
+      setData(data);
+    });
+  }, []);
+
   return (
     <div className="">
       <div className="flex flex-col justify-center items-center mt-20">
@@ -12,7 +34,7 @@ const Cards = () => {
         </div>
         <span className="text-5xl">We Provide Best Services</span>
       </div>
-      <HoverEffect items={services} />
+      <HoverEffect items={data} />
       <div className="mb-10 flex justify-center items-center text-lg">
         <span>
           Want To See Our Professional Experience.
@@ -24,50 +46,5 @@ const Cards = () => {
     </div>
   );
 };
-
-const services = [
-  {
-    title: "Digital Marketing",
-    src: "/service-2-icon-1.webp",
-    description:
-      "Non est risus massa enim dolor tristique. Fringilla non porttitor sem duis aliquet tellus iaculis pharetra aliquam. Morbi et placerat sit facilisis non tincidunt porttitor eu.",
-    link: "#",
-  },
-  {
-    title: "Visual Design",
-    src: "/service-2-icon-2.webp",
-    description:
-      "Non est risus massa enim dolor tristique. Fringilla non porttitor sem duis aliquet tellus iaculis pharetra aliquam. Morbi et placerat sit facilisis non tincidunt porttitor eu.",
-    link: "#",
-  },
-  {
-    title: "Business Development",
-    src: "/service-2-icon-3.webp",
-    description:
-      "Non est risus massa enim dolor tristique. Fringilla non porttitor sem duis aliquet tellus iaculis pharetra aliquam. Morbi et placerat sit facilisis non tincidunt porttitor eu.",
-    link: "#",
-  },
-  {
-    title: "Product Design",
-    src: "/service-2-icon-4.webp",
-    description:
-      "Non est risus massa enim dolor tristique. Fringilla non porttitor sem duis aliquet tellus iaculis pharetra aliquam. Morbi et placerat sit facilisis non tincidunt porttitor eu.",
-    link: "#",
-  },
-  {
-    title: "Mobile Application Design",
-    src: "/service-2-icon-5.webp",
-    description:
-      "Non est risus massa enim dolor tristique. Fringilla non porttitor sem duis aliquet tellus iaculis pharetra aliquam. Morbi et placerat sit facilisis non tincidunt porttitor eu.",
-    link: "#",
-  },
-  {
-    title: "Web Development",
-    src: "/service-2-icon-6.webp",
-    description:
-      "Non est risus massa enim dolor tristique. Fringilla non porttitor sem duis aliquet tellus iaculis pharetra aliquam. Morbi et placerat sit facilisis non tincidunt porttitor eu.",
-    link: "#",
-  },
-];
 
 export default Cards;
